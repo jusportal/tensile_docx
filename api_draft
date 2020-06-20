@@ -1,0 +1,40 @@
+# Core functionalities
+document = Tensile::Document.open(url)
+document = Tensile::Document.open(buffer)
+
+targets = ["%fruit%", "%vegetable%", "%drink%"]
+values = {"%fruit%" => "Apple", "%vegetable%" => "Sqaush", "%drink%" => "Beer"}
+
+document.replace!(targets, values)
+
+document.set_html_form_fields({
+  input_text: "%fill_input_text%",
+  radio: "%radio_input%",
+  url: "%url%"
+})
+
+document.to_html
+
+# Support functionalities
+
+document.texts
+document.paragraphs
+document.paragraphs.each do |paragraph|
+  paragraph.text_nodes.each do |text_node|
+    text_node do |node|
+      # whatever you do here as a node in xml
+    end
+  end
+end
+
+document.tables
+document.tables.each do |table|
+  table.rows.each do |row|
+    row.columns do |column|
+      column.cell do |cell|
+        # whatever you do here as a node in xml
+      end
+    end
+  end
+end
+
